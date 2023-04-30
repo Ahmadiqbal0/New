@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+
+        #app{
+            width: 600px;
+            height: 600px;
+            border:1px solid red;
+            background-image: url(wall.jpg);
+            overflow: hidden;
+            position: relative;
+    
+        }
+    
+        #player{
+            width:150px;
+            position: absolute;
+        border:5px solid red;
+    
+        }
+    
+    .star{
+        width: 150px;
+        position: absolute;
+        border:5px solid orange;
+    }
+    #scoreBox{
+        position: absolute;
+        top:10px;
+        left: 20px;
+        border-radius: 50px;
+        width: 50px;
+        height: 50px;
+        color:white
+    }
+    </style>
+    
+    <div id="app">
+    
+        <h2 id="scoreBox">0</h2>
+    
+        <img id="player" src="ship.png" alt="">
+    
+    </div>
+    
+    <script>
+    
+        let score = 0
+    
+        setInterval(function(){
+    
+            let star =  document.createElement('img');
+            star.src = "star.png";
+            star.className = "star";
+            star.style.left =  Math.random() * app.offsetWidth + 'px'
+            star.style.top =  Math.random() * app.offsetHeight + 'px'
+            app.appendChild(star)
+    
+    
+    
+        }, 3000)
+    
+        document.onkeydown = function(e){
+            console.log(e.keyCode);
+           
+            if(e.keyCode == 37){          
+                player.style.left = (player.offsetLeft - 5) + 'px';
+            }else if(e.keyCode == 39){          
+                player.style.left = (player.offsetLeft + 5) + 'px';
+            }else if(e.keyCode == 38){          
+                player.style.top = (player.offsetTop - 5) + 'px';
+            }else if(e.keyCode == 40){          
+                player.style.top = (player.offsetTop + 5) + 'px';
+            }
+    
+            let spacekaRight = player.offsetLeft + player.offsetWidth;
+            
+            let stars =  document.querySelectorAll('.star');
+    
+            stars.forEach(function(star){
+    
+                let starKaLeft = star.offsetLeft
+                let starKaBottom = star.offsetTop + star.offsetHeight;
+                let starKaRight = star.offsetLeft + star.offsetWidth;
+    
+                if(spacekaRight > starKaLeft && player.offsetTop > star.offsetTop && player.offsetTop < starKaBottom && player.offsetLeft < starKaRight){
+                    star.remove();
+                    score+=5;
+                    scoreBox.innerText= score;
+                }
+    
+    
+            })
+            
+        }
+    
+    
+    </script>
+</body>
+</html>
